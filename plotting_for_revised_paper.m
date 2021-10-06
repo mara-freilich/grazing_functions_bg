@@ -27,7 +27,7 @@ plot(xdata,ydata,'k','linewidth',2)
 plot(xdata,ydata1,'k','linewidth',1)
 plot(xdata,TimeseriesAFTERprocessing.accumulationratefirstquartile,'color',[0.3 0.3 0.3])
 plot(xdata,TimeseriesAFTERprocessing.accumulationratethirdquartile,'color',[0.3 0.3 0.3])
-grid on; grid minor
+grid on
 hold off
 x1 = 230:30:600;
 set(gca,'fontsize',15,'xtick',x1,'xticklabels',mod(x1,365))
@@ -44,12 +44,12 @@ plot(xdata,TimeseriesAFTERprocessing.surfacephytoplanktonmedian,'k','linewidth',
 hold on
 plot(xdata,TimeseriesAFTERprocessing.surfacephytoplanktonfirstquartile,'color',[0.3 0.3 0.3])
 plot(xdata,TimeseriesAFTERprocessing.surfacephytoplanktonthirdquartile,'color',[0.3 0.3 0.3])
-grid on; grid minor
+grid on
 hold off
 x1 = 230:30:600;
 set(gca,'fontsize',15,'xtick',x1,'xticklabels','')
 xlim([230 595])
-ylabel({'surface phytoplankton';'concentration (mgC m^{-3})'})
+ylabel({'surface phytoplankton';'concentration (mg C m^{-3})'})
 legend('type III','type II','observations')
 
 subplot(3,2,6)
@@ -59,7 +59,7 @@ plot(t,-mld,'color',cols(2,:),'linestyle','--','linewidth',2)
 plot(xdata,TimeseriesAFTERprocessing.mldmedian,'k','linewidth',2)
 plot(xdata,TimeseriesAFTERprocessing.mldfirstquartile,'color',[0.3 0.3 0.3])
 plot(xdata,TimeseriesAFTERprocessing.mldthirdquartile,'color',[0.3 0.3 0.3])
-grid on; grid minor
+grid on
 hold off
 x1 = 230:30:600;
 set(gca,'fontsize',15,'xtick',x1,'xticklabels',mod(x1,365))
@@ -73,7 +73,7 @@ ylabel('grazing rate (type III) (day^{-1})')
 hold on
 plot(t,BII(2)*zmlII(t+365*8)./(pmlII(t+365*8)+BII(3)),'color',cols(2,:),'linewidth',2)
 ylabel('grazing rate (day^{-1})')
-grid on; grid minor
+grid on
 x1 = xticks;
 set(gca,'fontsize',20,'xtick',x1,'xticklabels',mod(x1,365))
 xlim([230 595])
@@ -91,18 +91,16 @@ scatter(pmlIII(365*8),zmlIII(365*8),50,cols(1,:),'filled'); text(pmlIII(365*8)+0
 doy = 91;
 scatter(pmlII(doy+365*8),zmlII(doy+365*8),50,cols(2,:),'filled'); text(pmlII(doy+365*8)+0.5,zmlII(doy+365*8),'91')
 scatter(pmlIII(doy+365*8),zmlIII(doy+365*8),50,cols(1,:),'filled'); text(pmlIII(doy+365*8)+0.5,zmlIII(doy+365*8),'91')
-doy = 135;
-scatter(pmlII(doy+365*8),zmlII(doy+365*8),50,cols(2,:),'filled'); text(pmlII(doy+365*8)+0.5,zmlII(doy+365*8),'135')
-doy = 130;
-scatter(pmlIII(doy+365*8),zmlIII(doy+365*8),50,cols(1,:),'filled'); text(pmlIII(doy+365*8)+0.5,zmlIII(doy+365*8),'130')
+doy = 138;
+scatter(pmlII(doy+365*8),zmlII(doy+365*8),50,cols(2,:),'filled'); text(pmlII(doy+365*8)+0.5,zmlII(doy+365*8),num2str(doy))
+scatter(pmlIII(doy+365*8),zmlIII(doy+365*8),50,cols(1,:),'filled'); text(pmlIII(doy+365*8)+0.5,zmlIII(doy+365*8),num2str(doy))
 doy = 153;
 scatter(pmlII(doy+365*8),zmlII(doy+365*8),50,cols(2,:),'filled'); text(pmlII(doy+365*8)+0.5,zmlII(doy+365*8),'153')
-doy = 153;
 scatter(pmlIII(doy+365*8),zmlIII(doy+365*8),50,cols(1,:),'filled'); text(pmlIII(doy+365*8)+0.5,zmlIII(doy+365*8),'153')
-doy = 330;
+doy = 300;
 scatter(pmlII(doy+365*8),zmlII(doy+365*8),50,cols(2,:),'filled'); text(pmlII(doy+365*8)+0.5,zmlII(doy+365*8),'300')
 scatter(pmlIII(doy+365*8),zmlIII(doy+365*8),50,cols(1,:),'filled'); text(pmlIII(doy+365*8)+0.5,zmlIII(doy+365*8),'300')
-xlabel({'surface phytoplankton concentration (mgC m^{-3})'})
-ylabel({'surface zooplankton concentration (mgC m^{-3})'})
+xlabel({'surface phytoplankton concentration (mg C m^{-3})'})
+ylabel({'surface zooplankton concentration (mg C m^{-3})'})
 set(gca,'fontsize',20)
 hold off

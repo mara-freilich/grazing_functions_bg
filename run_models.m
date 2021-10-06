@@ -15,8 +15,8 @@ function [pmlII,zmlII,pmlIII,zmlIII,dpdtII,dpdtIII,BII,BIII] = run_models
 
 %% parameters and options
 % biological parameters in the order: [d_p g_0 p_0 d_z]
-BIII = [0.01    4   10    2.4]; % parameters for type III model
-BII = [0.004    5.9   15    3.5]; % parameters for type II model
+BIII = [0.001    4   15    1.8]; % parameters for type III model
+BII = [0.0004    5.9   15    6]; % parameters for type II model
 N_max = 30; % deep nutrient concentration
 a = 0.5; % assimilation efficiency
 mumax = 0.8; % maximum phytoplankton growth rate
@@ -30,7 +30,7 @@ pmlII = y1(:,2)'; zmlII = y1(:,3)'; % save variables
 [~,y1]=ode45(@f_typeIII,t,x0,options1); % sovle type III model
 pmlIII = y1(:,2)'; zmlIII = y1(:,3)'; % save variables
 
-% compute the change in biomass following Mignot et al 2018 Nature
+% compute the change in biomass following Mignot et al. 2018 Nature
 % Communications
 [mld,~,~,~,~,~] = mldmodel(t);
 dpdt1 = gradient(log(pmlII.*mld),mean(diff(t)));
@@ -50,7 +50,7 @@ dpdtIII = dpdt1.*(dhdt > 0)+dpdt2.*(dhdt < 0);
         h1 = 20;
         B = BIII;
         year_day=mod(t,365);
-        loffset = 10;
+        loffset = 270;
         [MLD,~,x2,tm,ml_min,ml_max] = mldmodel(t);
         w_e=(ml_max-ml_min)*(-0.5*sin(x2)*pi/315/315*(tm-50)*2);
         w_e_pos=w_e;
@@ -59,9 +59,9 @@ dpdtIII = dpdt1.*(dhdt > 0)+dpdt2.*(dhdt < 0);
         end
         
         yd1 = mod(year_day+loffset,365);
-        h_light=0.5*(0.6*sin(yd1*pi/365)+1);
+        h_light=20*(0.6*sin(yd1*pi/365*2)+1);
         light=h_light*h1/MLD*(1-exp(-MLD/h1));
-        r = mumax*light;
+        r = mumax*light/(40+light);
         
         dydt = [
             -(r*y(1)/(N0+y(1))-B(1))*y(2)+(1-a)*B(2)*y(3)*(y(2)^2/(y(2)^2+B(3)^2))+B(4)*y(3)^2+w_e_pos*(N_max-y(1))/MLD;
@@ -73,7 +73,7 @@ dpdtIII = dpdt1.*(dhdt > 0)+dpdt2.*(dhdt < 0);
         h1 = 20;
         B = BII;
         year_day=mod(t,365);
-        loffset = 10;
+        loffset = 270;
         [MLD,~,x2,tm,ml_min,ml_max] = mldmodel(t);
         w_e=(ml_max-ml_min)*(-0.5*sin(x2)*pi/315/315*(tm-50)*2);
         w_e_pos=w_e;
@@ -82,9 +82,9 @@ dpdtIII = dpdt1.*(dhdt > 0)+dpdt2.*(dhdt < 0);
         end
         
         yd1 = mod(year_day+loffset,365);
-        h_light=0.5*(0.6*sin(yd1*pi/365)+1);
+        h_light=20*(0.6*sin(yd1*pi/365*2)+1);
         light=h_light*h1/MLD*(1-exp(-MLD/h1));
-        r = mumax*light;
+        r = mumax*light/(40+light);
         
         dydt = [
             -(r*y(1)/(N0+y(1))-B(1))*y(2)+(1-a)*B(2)*y(3)*(y(2)/(y(2)+B(3)))+B(4)*y(3)^2+w_e_pos*(N_max-y(1))/MLD;
