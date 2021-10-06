@@ -19,16 +19,16 @@ end
 
     function dydt = f_typeII(t,y)
         h1 = 20;
-        loffset = 10;
+        loffset = 270;
         a = 0.5;
         mumax = 0.8;
         N0 = 4;
         [MLD,~,~,~,~,~] = mldmodel(year_day);
         
         yd1 = mod(year_day+loffset,365);
-        h_light=0.5*(0.6*sin(yd1*pi/365)+1);
+        h_light=20*(0.6*sin(yd1*pi/365*2)+1);
         light=h_light*h1/MLD*(1-exp(-MLD/h1));
-        r = mumax*light;
+        r = mumax*light/(40+light);
         
         N = N_max-y(1)-y(2);
         
